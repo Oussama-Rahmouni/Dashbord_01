@@ -1,4 +1,6 @@
 .navbar{
+    top: 0;
+    width: 100%;
     height: 50px;
     border-bottom: 0.5px solid lightblue;
     display: flex;
@@ -13,15 +15,16 @@
         justify-content: space-between;
         .search{
             display: flex;
+            flex:2;
             align-items: center;
             border:0.5px solid lightgray;
             padding: 3px;
-            .input{
+            input{
                 border: none;
                 outline: none;
                 background: transparent;
                 &::placeholder{
-                    font-size: 12px;
+                    font-size: 15px;
                 }
             }
         }
@@ -29,6 +32,8 @@
             display: flex;
             align-items: center;
             position: relative;
+            flex: 4;
+            justify-content: space-evenly;
             .item{
                 display: flex;
                 align-items: center;
@@ -40,7 +45,6 @@
                 .counter{
                     width: 15px;
                     height: 15px;
-                    background-color: red;
                     border-radius: 50%;
                     color: white;
                     display: flex;
