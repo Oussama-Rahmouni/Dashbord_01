@@ -1,9 +1,9 @@
-import User from '../models/User';
-
-export const addUser = async (userData) => {
+import {User} from '../../models/user/index.js';
+import bcrypt from 'bcryptjs';
+export const addUser = async (req, res) => {
     try {
         // Validate required fields
-        const { username, password, role, email, etat } = userData;
+        const { username, password, role, email, etat } = req.body;
         if (!username || !password || !role || !email || !etat) {
             throw new Error("All fields are required");
         }
@@ -14,11 +14,23 @@ export const addUser = async (userData) => {
             throw new Error("User with this email already exists");
         }
 
-        // Create new user
-        const newUser = await User.create(userData);
-        return newUser;
+        // Hash the password
+        const hashedPassword = await bcrypt.hash(password, 10); // 10 is the salt rounds
+
+        // Create new user with hashed password
+        const newUser = await User.create({
+            username,
+            password: hashedPassword,
+            role,
+            email,
+            etat
+        });
+        
+        // Send response
+        res.status(200).json({ newUser });
+
     } catch (error) {
-        throw new Error(`Error adding user: ${error.message}`);
+        res.status(400).json({ error: error.message });
     }
 }
 

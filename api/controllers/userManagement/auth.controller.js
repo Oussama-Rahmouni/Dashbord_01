@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
-import User from '../models/User';
+import {User} from '../../models/user/index.js';
 
 // Function to generate an access token
 const generateAccessToken = (userId) => {
@@ -20,21 +20,26 @@ export const login = async (req, res) => {
         // Find user by email
         const user = await User.findOne({ email });
         if (!user) {
-            return res.status(401).json({ error: "Invalid email or password" });
+            return res.status(401).json({ error: "Invalid email or password, mochkel hna" });
         }
 
         // Validate password
         const isPasswordValid = await bcrypt.compare(password, user.password);
         if (!isPasswordValid) {
-            return res.status(401).json({ error: "Invalid email or password" });
+            return res.status(401).json({ error: "Invalid email or password wala hna" });
         }
 
         // Generate tokens
         const accessToken = generateAccessToken(user._id);
         const refreshToken = generateRefreshToken(user._id);
 
-        // Send tokens in the response
-        res.status(200).json({ accessToken, refreshToken });
+        // Set tokens as cookies
+        // add this one, { httpOnly: true }
+        res.cookie("accessToken", accessToken );
+        res.cookie("refreshToken", refreshToken);
+
+       // Send response
+       res.status(200).json({ message: "Login successful" });
     } catch (error) {
         console.error(`Error logging in: ${error.message}`);
         res.status(500).json({ error: "An error occurred while logging in" });
@@ -43,6 +48,16 @@ export const login = async (req, res) => {
 
 // Controller function to handle user logout
 export const logout = async (req, res) => {
-    // No action required for logout with JWT tokens, client handles token invalidation
-    res.status(204).send(); // Respond with no content
+    try {
+        // Clear cookies
+        res.clearCookie("accessToken");
+        res.clearCookie("refreshToken");
+
+        // Send response
+        res.status(200).json({ message: "Logout successful" });
+    } catch (error) {
+        console.error(`Error logging out: ${error.message}`);
+        res.status(500).json({ error: "An error occurred while logging out" });
+    }
 }
+
