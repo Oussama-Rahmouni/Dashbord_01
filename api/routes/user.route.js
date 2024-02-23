@@ -6,13 +6,17 @@ import {
     getUser,
     getAllUsers,
 } from '../controllers/userManagement/index.js'
+import isAuth from '../middlewares/isAuth.js';
+import isAdmin from '../middlewares/isAdmin.js';
+
+
 const router = express.Router();
 
 
-router.post("/add", addUser);
-router.put("/update", updateUser);
-router.get("/user/:id", getUser);
-router.get("/users", getAllUsers);
-router.delete("/deluser", deleteUser)
+router.post("/add", isAuth, isAdmin, addUser);
+router.put("/:id", isAuth, isAdmin, updateUser);
+router.get("/user/:id", isAuth, isAdmin, getUser);
+router.get("/users", isAuth, isAdmin, getAllUsers);
+router.delete("/deluser", isAuth, isAdmin, deleteUser)
 
 export default router;

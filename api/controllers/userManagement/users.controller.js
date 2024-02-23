@@ -1,5 +1,6 @@
 import {User} from '../../models/user/index.js';
 import bcrypt from 'bcryptjs';
+
 export const addUser = async (req, res) => {
     try {
         // Validate required fields
@@ -27,30 +28,31 @@ export const addUser = async (req, res) => {
         });
         
         // Send response
-        res.status(200).json({ newUser });
+        res.status(200).json({"new user was created ": newUser });
 
     } catch (error) {
         res.status(400).json({ error: error.message });
     }
 }
 
-export const updateUser = async (userId, userData) => {
+// Controller function to handle user update
+export const updateUser = async (req, res) => {
     try {
-        // Check if user exists
-        const user = await User.findById(userId);
-        if (!user) {
-            throw new Error("User not found");
-        }
-
+        // Extract user ID from request parameters or body
+        const userId = req.params.id; // Example: req.params.userId or req.body.userId
+        console.log(userId)
+        // Retrieve updated user data from request body
+        const userData = req.body;
+        console.log(userData)
         // Update user data
-        Object.assign(user, userData);
-        await user.save();
+        const updatedUser = await User.findByIdAndUpdate(userId, userData, { new: true });
 
-        return user;
+        return res.status(200).json({ updatedUser });
     } catch (error) {
-        throw new Error(`Error updating user: ${error.message}`);
+        return res.status(500).json({ error: `Error updating user: ${error.message}` });
     }
-}
+};
+
 
 export const deleteUser = async (userId) => {
     try {
