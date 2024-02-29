@@ -2,8 +2,6 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import {User} from '../../models/user/index.js';
 
-import base64url from 'base64url'; 
-
 const generateAccessToken = (userId, role, email, etat) => {
     const payload = { userId, role, email, etat };
     const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '15m' });

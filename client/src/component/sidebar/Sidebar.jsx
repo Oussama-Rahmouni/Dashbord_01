@@ -1,5 +1,5 @@
-import React from 'react'
-import './sidebar.scss'
+import React from 'react';
+import './sidebar.scss';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import MapIcon from '@mui/icons-material/Map';
@@ -7,27 +7,28 @@ import AppSettingsAltIcon from '@mui/icons-material/AppSettingsAlt';
 import DisplaySettingsIcon from '@mui/icons-material/DisplaySettings';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import LogoutIcon from '@mui/icons-material/Logout';
-import Logo from '../../assets/oussama.jpg'
+import Logo from '../../assets/oussama.jpg';
+import { Link } from 'react-router-dom';
 
 const Sidebar = () => {
   return (
     <div className='sidebar'>
       <div className="top">
-          <img src={Logo }alt="mabench" className='logo' />
+          <img src={Logo} alt="mabench" className='logo' />
       </div>
       <hr />
       <div className="center">
         <ul>
           <p className="title">Main</p>
-          <li><DashboardIcon className='icon'/><span>Dashboard</span></li>
+          <li><Link to="/" className='link'><DashboardIcon className='icon'/><span>Dashboard</span></Link></li>
           <p className="title">List</p>
-          <li><PersonOutlineIcon className='icon' /><span>Users</span></li>
-          <li><MapIcon /><span>Zones</span></li>
-          <li><AppSettingsAltIcon className='icon' /><span>Apparails</span></li>
-          <li><DisplaySettingsIcon className='icon' /><span>Limits</span></li>
-          <p className="title">User</p>
-          <li><AccountBoxIcon className='icon' /><span>Profile</span></li>
-          <li><LogoutIcon className='icon' /><span>Logout</span></li>
+          <li><Link to="/users" className='link'><PersonOutlineIcon className='icon' /><span>Users</span></Link></li>
+          <li><Link to="/zones" className='link'><MapIcon /><span>Zones</span></Link></li>
+          <li><Link to="/apparails" className='link'><AppSettingsAltIcon className='icon' /><span>Apparails</span></Link></li>
+          <li><Link to="/reglage" className='link'><DisplaySettingsIcon className='icon' /><span>Reglage</span></Link></li>
+          <p className="title" >User</p>
+          <li><Link to="/profile" className='link'><AccountBoxIcon className='icon' /><span>Profile</span></Link></li>
+          <li><Link to="/login" className='link'><LogoutIcon className='icon' /><span>Logout</span></Link></li>
         </ul>
       </div>
       <div className="bottom">
@@ -35,7 +36,7 @@ const Sidebar = () => {
         <div className="colorOption"></div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Sidebar
+export default Sidebar;

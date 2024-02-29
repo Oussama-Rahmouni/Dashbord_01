@@ -40,10 +40,8 @@ export const updateUser = async (req, res) => {
     try {
         // Extract user ID from request parameters or body
         const userId = req.params.id; // Example: req.params.userId or req.body.userId
-        console.log(userId)
         // Retrieve updated user data from request body
         const userData = req.body;
-        console.log(userData)
         // Update user data
         const updatedUser = await User.findByIdAndUpdate(userId, userData, { new: true });
 
@@ -52,7 +50,6 @@ export const updateUser = async (req, res) => {
         return res.status(500).json({ error: `Error updating user: ${error.message}` });
     }
 };
-
 
 export const deleteUser = async (userId) => {
     try {
@@ -71,7 +68,8 @@ export const deleteUser = async (userId) => {
     }
 }
 
-export const getUser = async (userId) => {
+export const getUser = async (req, res) => {
+    const userId = req.params.id;
     try {
         // Find user by ID
         const user = await User.findById(userId);
@@ -79,7 +77,7 @@ export const getUser = async (userId) => {
             throw new Error("User not found");
         }
 
-        return user;
+        return res.status(200).json({user});
     } catch (error) {
         throw new Error(`Error getting user: ${error.message}`);
     }
