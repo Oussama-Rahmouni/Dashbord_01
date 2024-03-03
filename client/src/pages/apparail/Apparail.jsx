@@ -2,7 +2,7 @@ import React from 'react'
 import "./apparail.scss"
 import Sidebar from '../../component/sidebar/Sidebar'
 import Navbar from '../../component/navbar/Navbar'
-import FeaturedChart from '../../component/featured/FeaturedChart'
+import DatatableApp from '../../component/dataTable/DataTableApp'
 
 
 const Apparail = () => {
@@ -12,10 +12,8 @@ const Apparail = () => {
         <div className="apparailContainer">
             <Navbar />
             <div className="charContainer">
+            <DatatableApp />
 
-            <FeaturedChart />
-            <FeaturedChart />
-            <FeaturedChart />
             </div>
             
         </div>

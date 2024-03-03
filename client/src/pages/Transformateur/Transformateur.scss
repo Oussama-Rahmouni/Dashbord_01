@@ -1,0 +1,36 @@
+.container {
+    font-family: sans-serif;
+    margin: 20px;
+  }
+  
+  .chart {
+    width: 600px;
+    height: 400px;
+  }
+  
+  .line-chart {
+    stroke-width: 2px;
+  }
+  
+  .line-chart-series {
+    stroke: #ccc;
+  }
+  
+  .line-chart-series:hover {
+    stroke: #000;
+  }
+  
+  .line-chart-dot {
+    fill: #fff;
+    stroke: #000;
+    stroke-width: 2px;
+  }
+  
+  .line-chart-axis {
+    stroke: #ccc;
+  }
+  
+  .line-chart-axis-label {
+    font-size: 12px;
+  }
+  
