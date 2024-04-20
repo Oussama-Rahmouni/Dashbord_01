@@ -15,6 +15,8 @@ function Login() {
     try {
       const res = await newRequest.post("/auth/login", { email, password });
       localStorage.setItem("accessToken", JSON.stringify(res.data));
+      const { acces } = res.data
+      console.log(acces)
       navigate("/")
     } catch (err) {
       setError(err.response.data);

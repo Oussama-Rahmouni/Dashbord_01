@@ -38,7 +38,7 @@ export const login = async (req, res) => {
         // Set tokens as cookies
         res.cookie("accessToken", accessToken,{ httpOnly: true } );
         res.cookie("refreshToken", refreshToken, { httpOnly: true });
-        res.status(200).send("logged in");
+        res.status(200).json({acces:accessToken});
 
        // Send response
     } catch (error) {
